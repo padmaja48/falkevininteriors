@@ -14,11 +14,11 @@ export function Hero() {
       <HeroMedia />
       {/* Soft left + bottom wash — keep right side vivid for color */}
       <div
-        className="absolute inset-0 bg-gradient-to-r from-black/50 via-black/15 to-transparent"
+        className="absolute inset-0 bg-gradient-to-r from-black/65 via-black/20 to-transparent md:from-black/50 md:via-black/15"
         aria-hidden="true"
       />
       <div
-        className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent"
+        className="absolute inset-0 bg-gradient-to-t from-black/75 via-black/15 to-transparent md:from-black/40 md:via-transparent"
         aria-hidden="true"
       />
 
@@ -30,17 +30,17 @@ export function Hero() {
         }}
       >
         <div className="mx-auto w-full max-w-7xl pb-6 md:pb-16 lg:pb-24">
-          <div className="max-w-2xl">
+          <div className="hero-copy max-w-2xl">
             <p className="hero-type font-heading text-lg tracking-[0.08em] text-white sm:text-xl md:text-2xl">
               {siteConfig.logoText}
             </p>
-            <h1 className="hero-type mt-3 font-heading text-[clamp(1.5rem,6.5vw,2.75rem)] font-light leading-[1.15] tracking-tight text-white sm:mt-4">
+            <h1 className="hero-type mt-3 max-w-[19ch] font-heading text-[clamp(1.75rem,8vw,2.75rem)] font-light leading-[1.08] tracking-tight text-white sm:mt-4 md:max-w-none">
               {hero.heading}
             </h1>
-            <p className="hero-type mt-3 max-w-xl font-body text-sm leading-relaxed text-white sm:text-base md:mt-4 md:text-lg">
+            <p className="hero-type mt-4 max-w-[34ch] font-body text-sm leading-[1.55] text-white sm:mt-3 sm:max-w-xl sm:text-base md:mt-4 md:text-lg">
               {hero.subheading}
             </p>
-            <div className="mt-6 flex w-full flex-col gap-3 sm:mt-7 sm:max-w-md sm:flex-row sm:items-center sm:gap-4">
+            <div className="mt-5 flex w-full flex-col gap-2.5 sm:mt-7 sm:max-w-md sm:flex-row sm:items-center sm:gap-4">
               <CTA
                 href={hero.primaryHref}
                 variant="light-solid"
