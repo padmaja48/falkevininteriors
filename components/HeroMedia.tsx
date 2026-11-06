@@ -36,9 +36,9 @@ export function HeroMedia() {
 
   // Soft opacity only — avoid scale zoom (softens the photo)
   return (
-    <div ref={ref} className="absolute inset-0 overflow-hidden">
+    <div ref={ref} className="absolute inset-0 h-full w-full max-w-full overflow-hidden">
       <m.div
-        className="absolute inset-0"
+        className="absolute inset-0 h-full w-full max-w-full"
         style={isMobile || reduce ? undefined : { y }}
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
@@ -55,7 +55,7 @@ export function HeroMedia() {
           priority
           sizes="100vw"
           quality={100}
-          className="object-cover object-center"
+          className="h-full w-full max-w-full object-cover object-center"
         />
       </m.div>
     </div>

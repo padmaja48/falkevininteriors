@@ -8,7 +8,7 @@ export function Hero() {
 
   return (
     <section
-      className="relative flex min-h-[100svh] w-full flex-col overflow-hidden supports-[height:100dvh]:min-h-[100dvh]"
+      className="relative isolate flex min-h-[100svh] w-full max-w-full flex-col overflow-hidden supports-[height:100dvh]:min-h-[100dvh]"
       aria-label="Hero"
     >
       <HeroMedia />

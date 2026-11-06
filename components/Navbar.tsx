@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import { createPortal } from "react-dom";
 import { useEffect, useState } from "react";
 import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
 import { BrandLogo } from "@/components/BrandLogo";
@@ -20,7 +21,7 @@ export function Navbar() {
 
   return (
     <header
-      className="fixed inset-x-0 top-0 z-50 border-b border-deep/10 bg-background/95 backdrop-blur-sm"
+      className="fixed inset-x-0 top-0 z-[60] border-b border-deep/10 bg-background/95 backdrop-blur-sm"
       style={{ paddingTop: "var(--safe-top)" }}
     >
       <div className="page-gutter mx-auto flex h-[var(--nav-h)] max-w-7xl items-center justify-between gap-3">
@@ -89,66 +90,60 @@ export function Navbar() {
         </button>
       </div>
 
-      <AnimatePresence>
-        {open && (
-          <motion.div
-            id="mobile-menu"
-            className="fixed inset-0 z-50 flex flex-col bg-background page-gutter lg:hidden"
-            style={{
-              paddingTop: "calc(var(--nav-h) + var(--safe-top) + 1rem)",
-              paddingBottom: "calc(var(--sticky-bar-h) + 1.5rem)",
-            }}
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            transition={{ duration: reduce ? 0.6 : 0.35 }}
-          >
-            <button
-              type="button"
-              className="absolute right-[max(1.25rem,env(safe-area-inset-right))] top-[calc(0.65rem+var(--safe-top))] flex h-11 w-11 items-center justify-center text-deep"
-              aria-label="Close menu"
-              onClick={() => setOpen(false)}
+      {open &&
+        typeof document !== "undefined" &&
+        createPortal(
+          <AnimatePresence>
+            <motion.div
+              id="mobile-menu"
+              role="dialog"
+              aria-modal="true"
+              aria-label="Mobile navigation"
+              className="fixed inset-0 z-[55] flex h-[100dvh] min-h-[100svh] flex-col overflow-y-auto bg-background page-gutter lg:hidden"
+              style={{
+                paddingTop: "calc(var(--nav-h) + var(--safe-top) + 1rem)",
+                paddingBottom: "calc(var(--safe-bottom) + 1rem)",
+              }}
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: reduce ? 0.6 : 0.35 }}
             >
-              <span className="relative block h-5 w-5" aria-hidden="true">
-                <span className="absolute top-1/2 left-0 block h-px w-full -translate-y-1/2 rotate-45 bg-deep" />
-                <span className="absolute top-1/2 left-0 block h-px w-full -translate-y-1/2 -rotate-45 bg-deep" />
-              </span>
-            </button>
-
-            <nav
-              className="flex flex-1 flex-col justify-center gap-1 overflow-y-auto py-4"
-              aria-label="Mobile"
-            >
-              {siteConfig.nav.map((item, i) => (
-                <motion.div
-                  key={item.href}
-                  initial={reduce ? { opacity: 0 } : { opacity: 0, y: 16 }}
-                  animate={reduce ? { opacity: 1 } : { opacity: 1, y: 0 }}
-                  transition={{
-                    delay: 0.05 * i,
-                    duration: reduce ? 0.6 : 0.45,
-                  }}
-                >
-                  <Link
-                    href={item.href}
-                    className="font-heading block min-h-12 py-2.5 text-[clamp(1.75rem,8vw,2.5rem)] text-deep"
-                    onClick={() => setOpen(false)}
+              <nav
+                className="flex min-h-0 flex-1 flex-col justify-center gap-1 overflow-y-auto py-4"
+                aria-label="Mobile"
+              >
+                {siteConfig.nav.map((item, i) => (
+                  <motion.div
+                    key={item.href}
+                    initial={reduce ? { opacity: 0 } : { opacity: 0, y: 16 }}
+                    animate={reduce ? { opacity: 1 } : { opacity: 1, y: 0 }}
+                    transition={{
+                      delay: 0.05 * i,
+                      duration: reduce ? 0.6 : 0.45,
+                    }}
                   >
-                    {item.label}
-                  </Link>
-                </motion.div>
-              ))}
-            </nav>
-            <Link
-              href={siteConfig.cta.primaryHref}
-              onClick={() => setOpen(false)}
-              className="flex min-h-12 items-center justify-center border border-deep px-5 py-4 text-center font-body text-xs uppercase tracking-[0.16em] text-deep"
-            >
-              {siteConfig.cta.primary}
-            </Link>
-          </motion.div>
+                    <Link
+                      href={item.href}
+                      className="font-heading block min-h-12 py-2.5 text-[clamp(1.75rem,8vw,2.5rem)] leading-tight text-deep"
+                      onClick={() => setOpen(false)}
+                    >
+                      {item.label}
+                    </Link>
+                  </motion.div>
+                ))}
+              </nav>
+              <Link
+                href={siteConfig.cta.primaryHref}
+                onClick={() => setOpen(false)}
+                className="flex min-h-12 shrink-0 items-center justify-center border border-deep px-5 py-4 text-center font-body text-xs uppercase tracking-[0.16em] text-deep"
+              >
+                {siteConfig.cta.primary}
+              </Link>
+            </motion.div>
+          </AnimatePresence>,
+          document.body
         )}
-      </AnimatePresence>
     </header>
   );
 }
