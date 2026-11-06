@@ -1,7 +1,7 @@
 import Image from "next/image";
 import type { Project } from "@/content/projects";
 import { images } from "@/content/images";
-import { formatIndex, cn } from "@/lib/utils";
+import { cn } from "@/lib/utils";
 import {
   ImageReveal,
   type ImageRevealDirection,
@@ -19,10 +19,8 @@ type ProjectCardProps = {
 
 export function ProjectCard({
   project,
-  index,
   className,
   aspect = "aspect-[4/5]",
-  showIndex = false,
   revealDelay = 0,
   revealDirection = "up",
 }: ProjectCardProps) {
@@ -55,22 +53,6 @@ export function ProjectCard({
             </p>
           </div>
         </ImageReveal>
-        <div className="mt-4 flex items-start justify-between gap-4">
-          <div>
-            {showIndex && typeof index === "number" && (
-              <span className="label-caps mr-3 inline-block">
-                {formatIndex(index)}
-              </span>
-            )}
-            <h3 className="font-heading text-xl text-deep md:text-2xl">
-              {project.title}
-            </h3>
-            <p className="mt-1 font-body text-sm text-muted">
-              {project.location} · {project.categoryLabel}
-            </p>
-          </div>
-          <p className="shrink-0 font-body text-xs text-muted">{project.year}</p>
-        </div>
       </div>
     </article>
   );
