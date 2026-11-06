@@ -7,11 +7,11 @@ import type { ImageRevealDirection } from "@/components/ImageReveal";
 import { cn } from "@/lib/utils";
 
 const layouts = [
-  "md:col-span-7 md:mt-0",
-  "md:col-span-5 md:mt-16",
-  "md:col-span-5 md:mt-0",
-  "md:col-span-7 md:mt-20",
-  "md:col-span-8 md:col-start-3 md:mt-8",
+  "md:col-span-7",
+  "md:col-span-5",
+  "md:col-span-5",
+  "md:col-span-7",
+  "md:col-span-8 md:col-start-3",
 ];
 
 /** Mobile editorial stack: full / offset alternating */
@@ -56,7 +56,7 @@ export function SelectedWork() {
           </p>
         </Reveal>
 
-        <div className="flex flex-col gap-10 md:grid md:grid-cols-12 md:gap-8">
+        <div className="flex flex-col gap-6 md:grid md:grid-cols-12 md:gap-6">
           {projects.map((project, i) => (
             <div
               key={project.slug}
