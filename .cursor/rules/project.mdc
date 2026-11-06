@@ -1,0 +1,12 @@
+---
+description: Falkevin Interior Designers interior design site rules
+alwaysApply: true
+---
+- Next.js App Router, TypeScript, Tailwind. No new dependencies without a strong reason.
+- Never hard-code client content (names, phone, copy, image URLs) in components; read from /content.
+- All colors and fonts come from theme CSS variables.
+- All images via next/image with alt text, defined only in content/images.ts. Never use Google Images or unlicensed photos.
+- Animations: slow, subtle, reduced-motion aware. No bounce, spin, particles, cursor effects.
+- Design tone: warm, quiet, editorial, architectural. Restraint over decoration.
+- Mobile-first; verify 360/390/768/1024/1440 widths.
+- Run `npm run build` and fix all errors before finishing a phase.
